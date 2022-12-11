@@ -1,0 +1,65 @@
+﻿@page "/employeedata"
+@using MauiTestApp.Data.Model;
+@using MauiTestApp.Data;
+
+
+@inject EmployeeService EmployeeService
+
+<h1>Employee Data</h1>
+
+<p>This component shows the details of the employees.</p>
+
+@if (employeeModels == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<form class="login" @onsubmit="SearchEmployee">
+		<input type="text" placeholder="User Input" @bind="_searchInput" />
+		<button class="w-10 btn btn-sm btn-primary" type="submit">
+		 Submit
+		</button>
+	</form>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Designation</th>
+				<th>Salary</th>
+				<th>Join Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var employee in employeeModels)
+			{
+				<tr>
+					<td>@employee.FirstName</td>
+					<td>@employee.LastName</td>
+					<td>@employee.Designation</td>
+					<td>@employee.Salary</td>
+					<td>@employee.StartDate.ToShortDateString()</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private List<EmployeeModel> employeeModels;
+	private string _searchInput;
+	private string _hashData;
+
+	protected override async Task OnInitializedAsync()
+	{
+		employeeModels = EmployeeService.EmployeeDetails();
+	}
+
+	private void SearchEmployee()
+	{
+		//employeeModels = EmployeeService.GetEmployeeData(_searchInput);
+		_hashData = Helper.ConvertHash(_searchInput, "");
+	}
+}

@@ -1,0 +1,26 @@
+﻿@page "/login"
+@using MauiTestApp.Data;
+
+@inject EmployeeService EmployeeService
+
+<div class="user-login">
+    <form class="login" @onsubmit="LoginUser">
+        <h2>Welcome, User!</h2>
+        <p>Please log in</p>
+        <input type="text" placeholder="User Name" @bind="_userName" />
+        <input type="password" placeholder="Password" @bind="_password"/>
+        <input type="submit" value="Log In" />
+        <div class="links">
+            <a href="#">Forgot password</a>
+            <a href="#">Register</a>
+        </div>
+    </form>
+</div>
+@code {
+    private string _userName;
+    private string _password;
+    public void LoginUser()
+    {
+        
+    }
+}
